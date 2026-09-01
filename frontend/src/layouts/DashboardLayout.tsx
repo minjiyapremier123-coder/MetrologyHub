@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { LayoutDashboard, ScanLine, History, Settings, Sun, Moon, LogOut, CloudOff, CloudSync } from 'lucide-react';
+import { LayoutDashboard, ScanLine, History, Settings, Sun, Moon, LogOut, CloudOff } from 'lucide-react';
 
 export const DashboardLayout = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');

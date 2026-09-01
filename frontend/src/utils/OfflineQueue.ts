@@ -12,7 +12,7 @@ export const OFFLINE_QUEUE_KEY = 'metrology_offline_queue';
 
 export const saveToOfflineQueue = async (scan: PendingScan) => {
     try {
-        await update(OFFLINE_QUEUE_KEY, (val) => {
+        await update(OFFLINE_QUEUE_KEY, (val: any) => {
             const queue = (val as PendingScan[]) || [];
             return [...queue, scan];
         });
@@ -41,7 +41,7 @@ export const clearOfflineQueue = async () => {
 
 export const removeOfflineScan = async (id: string) => {
     try {
-        await update(OFFLINE_QUEUE_KEY, (val) => {
+        await update(OFFLINE_QUEUE_KEY, (val: any) => {
             const queue = (val as PendingScan[]) || [];
             return queue.filter(s => s.id !== id);
         });
