@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LM OCR PoC</title>
+  <link rel="manifest" href="/manifest.json">
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:32px;background:var(--bg);color:var(--fg)}
+    :root{--bg:#ffffff;--fg:#000000}
+    [data-theme="dark"]{--bg:#121212;--fg:#eaeaea}
+    .container{max-width:720px;margin:0 auto}
+    .preview{max-width:100%;height:auto;margin-top:12px}
+    .result{white-space:pre-wrap;background:#f3f3f3;padding:12px;border-radius:6px;margin-top:12px}
+    .controls{display:flex;gap:8px;align-items:center}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Legal Metrology OCR — PoC</h1>
+    <p>Upload an image of a packaged commodity label to extract OCR text.</p>
+
+    <div class="controls">
+      <input type="file" id="imageInput" accept="image/*" />
+      <button id="uploadBtn">Upload & OCR</button>
+      <button id="darkBtn">Toggle Dark</button>
+    </div>
+
+    <img id="preview" class="preview" src="" alt="preview" style="display:none"/>
+
+    <h3>OCR Result</h3>
+    <div id="result" class="result">No result yet</div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

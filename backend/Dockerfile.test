@@ -1,0 +1,7 @@
+FROM node:18-alpine AS test
+WORKDIR /usr/src/app
+COPY package.json package-lock.json* ./
+RUN npm ci
+COPY . ./
+# Run integration tests (expects a Postgres DB and backend to be reachable if tests use it)
+CMD ["npm", "test"]

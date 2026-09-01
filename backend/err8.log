@@ -1,0 +1,53 @@
+﻿node : node:internal/
+event_target:1118
+At line:1 char:1
++ node server.js > 
+out.log 2> err.log
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (node:in   
+ ternal/event_tar    
+get:1118:String)     
+[], RemoteExcep    
+tion
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+  
+process.nextTick(() 
+=> { throw err; });
+                     
+      ^
+
+Error: Error: 
+ENOENT: no such file 
+or directory, open 'C
+:\Users\JIYA\OneDrive
+\Desktop\SIH\backend\
+tessdata\eng.trainedd
+ata.gz'
+    at 
+Worker.<anonymous> (C
+:\Users\JIYA\OneDrive
+\Desktop\SIH\backend\
+node_modules\tesserac
+t.js\src\createWorker
+.js:191:15)
+    at Worker.emit 
+(node:events:509:28)
+    at MessagePort.<a
+nonymous> (node:inter
+nal/worker:332:53)
+    at [nodejs.intern
+al.kHybridDispatch] (
+node:internal/event_t
+arget:843:20)
+    at MessagePort.<a
+nonymous> (node:inter
+nal/per_context/messa
+geport:23:28)
+
+Node.js v24.15.0

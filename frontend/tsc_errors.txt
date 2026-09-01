@@ -1,0 +1,11 @@
+src/App.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/layouts/DashboardLayout.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/Dashboard.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/Dashboard.tsx(3,48): error TS6133: 'Activity' is declared but its value is never read.
+src/pages/Dashboard.tsx(18,7): error TS6133: 'mockRecentFeeds' is declared but its value is never read.
+src/pages/Repository.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/Scanner.tsx(6,23): error TS7016: Could not find a declaration file for module 'tesseract.js'. 'C:/Users/JIYA/OneDrive/Desktop/SIH/frontend/node_modules/tesseract.js/src/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/tesseract.js` if it exists or add a new declaration (.d.ts) file containing `declare module 'tesseract.js';`
+src/pages/Scanner.tsx(9,43): error TS2307: Cannot find module '../utils/RuleEngine' or its corresponding type declarations.
+src/pages/Settings.tsx(4,22): error TS6133: 'Bell' is declared but its value is never read.
+src/pages/Settings.tsx(4,37): error TS6133: 'Globe' is declared but its value is never read.

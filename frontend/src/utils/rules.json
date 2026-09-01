@@ -1,0 +1,41 @@
+{
+    "version": "1.0.0",
+    "name": "LMPC Rules 2011 - Rule 6 MVP",
+    "fields": [
+        {
+            "id": "fssai_or_mfg",
+            "name": "Manufacturer/Packer/Importer Details",
+            "description": "Checks for presence of manufacturer name, address, or FSSAI license",
+            "regex": "(fssai|lic(\\.|\\s)?no|manufactured by|pkd by|packed|marketed by|\\d{14})",
+            "flags": "i"
+        },
+        {
+            "id": "net_quantity",
+            "name": "Net Quantity",
+            "description": "Checks for net volume or weight with valid unit",
+            "regex": "(net|weight|vol|qty|content).{0,15}[\\d\\.]+\\s*(g|kg|ml|l|liter|litre|gm|pieces|pcs)\\b",
+            "flags": "i"
+        },
+        {
+            "id": "mrp",
+            "name": "MRP (Maximum Retail Price)",
+            "description": "Checks for MRP and inclusive of all taxes pattern",
+            "regex": "(mrp|m\\.r\\.p|rs\\.?|₹|price).{0,15}[\\d\\.]+",
+            "flags": "i"
+        },
+        {
+            "id": "mfg_date",
+            "name": "Manufacturing / Packing Date",
+            "description": "Checks for date patterns MM/YYYY or similar",
+            "regex": "(mfd|pkd|use by|manufactured|packed).{0,15}(\\d{2}[/\\.-]\\d{2,4}|[a-zA-Z]{3,}\\s*\\d{2,4})",
+            "flags": "i"
+        },
+        {
+            "id": "consumer_care",
+            "name": "Consumer Care Details",
+            "description": "Checks for contact info (email/phone/address) for complaints",
+            "regex": "(consumer|customer|care|feedback|complaint|toll.?free|email|call|@)",
+            "flags": "i"
+        }
+    ]
+}

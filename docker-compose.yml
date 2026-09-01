@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/lm_poc
+    volumes:
+      - ./backend/uploads:/usr/src/app/uploads
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: lm_poc
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
