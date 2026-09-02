@@ -11,15 +11,7 @@ COPY package.json package-lock.json* ./
 # Install all dependencies (including dev) so container can run tests
 RUN npm ci || npm install
 
-# Create tessdata directory and download English traineddata to avoid runtime fetches
-RUN mkdir -p /usr/src/app/tessdata \
-  && curl -fsSL -o /usr/src/app/tessdata/eng.traineddata \
-    https://github.com/tesseract-ocr/tessdata/raw/main/eng.traineddata || echo "Warning: failed to download eng.traineddata"
-
 COPY . ./
-
-# Ensure tessdata is readable
-RUN chmod -R a+r /usr/src/app/tessdata || true
 
 # Expose port and provide a default
 EXPOSE 5000

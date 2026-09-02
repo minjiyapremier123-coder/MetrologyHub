@@ -230,7 +230,11 @@ app.post('/api/ocr', authenticateToken, upload.single('image'), async (req, res)
       }
 
       if (!fields) {
-        const worker = await createWorker({ logger: m => console.log(m) });
+        const worker = await createWorker({
+          logger: m => console.log(m),
+          langPath: tessdataPath,
+          gzip: false
+        });
         await worker.loadLanguage('eng');
         await worker.initialize('eng');
         const { data: { text: ocrText } } = await worker.recognize(imagePath);

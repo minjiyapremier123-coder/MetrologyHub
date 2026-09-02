@@ -14,12 +14,25 @@ const extractor = require('../lib/extractor');
     const tmpPath = path.join(__dirname, 'sample.png');
     fs.writeFileSync(tmpPath, buf);
 
-    const form = new FormData();
-    form.append('image', fs.createReadStream(tmpPath));
+    console.log('Logging in to get JWT token...');
+    const API_URL = process.env.API_URL || 'http://localhost:5001';
+    const loginRes = await fetch(`${API_URL}/api/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: 'inspector', password: 'password123' })
+    });
+    const loginData = await loginRes.json();
+    if (!loginData.token) {
+      console.error('Login failed, no token received');
+      process.exit(5);
+    }
 
     console.log('Uploading sample image to local backend...');
-    const API_URL = process.env.API_URL || 'http://localhost:5001';
-    const ocrResp = await fetch(`${API_URL}/api/ocr`, { method: 'POST', body: form });
+    const ocrResp = await fetch(`${API_URL}/api/ocr`, {
+      method: 'POST',
+      body: form,
+      headers: { 'Authorization': `Bearer ${loginData.token}` }
+    });
     if (!ocrResp.ok) {
       console.error('OCR endpoint returned', ocrResp.status);
       process.exit(2);

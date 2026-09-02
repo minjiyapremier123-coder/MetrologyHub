@@ -23,8 +23,17 @@ const FormData = require('form-data');
     const headers = {};
     if (!useImage) headers['X-Test-Mode'] = '1';
 
-    console.log('Posting to /api/ocr for e2e test');
+    console.log('Logging in to get JWT token...');
     const API_URL = process.env.API_URL || 'http://localhost:5001';
+    const loginRes = await fetch(`${API_URL}/api/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: 'inspector', password: 'password123' })
+    });
+    const loginData = await loginRes.json();
+    if (loginData.token) headers['Authorization'] = `Bearer ${loginData.token}`;
+
+    console.log('Posting to /api/ocr for e2e test');
     const resp = await fetch(`${API_URL}/api/ocr`, { method: 'POST', body: form, headers });
     if (!resp.ok) {
       console.error('E2E POST failed:', resp.status);
