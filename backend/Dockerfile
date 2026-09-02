@@ -1,9 +1,9 @@
-FROM node:18-alpine
+FROM node:18-slim
 
 WORKDIR /usr/src/app
 
-# Install curl to download tessdata
-RUN apk add --no-cache curl ca-certificates
+# Install curl (used optionally for debug or scripts)
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # copy package manifest first for better cache utilization
 COPY package.json package-lock.json* ./
