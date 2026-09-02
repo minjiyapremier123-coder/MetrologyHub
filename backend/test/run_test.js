@@ -14,6 +14,9 @@ const extractor = require('../lib/extractor');
     const tmpPath = path.join(__dirname, 'sample_COMPLIANT.png');
     fs.writeFileSync(tmpPath, buf);
 
+    const form = new FormData();
+    form.append('image', fs.createReadStream(tmpPath));
+
     console.log('Logging in to get JWT token...');
     const API_URL = process.env.API_URL || 'http://localhost:5001';
     const loginRes = await fetch(`${API_URL}/api/login`, {
