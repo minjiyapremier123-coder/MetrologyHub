@@ -4,8 +4,7 @@ services:
     build: ./backend
     ports:
       - "5001:5001"
-    environment:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/lm_poc
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./backend/uploads:/usr/src/app/uploads
   frontend:
@@ -14,13 +13,3 @@ services:
       - "3000:80"
     depends_on:
       - backend
-  postgres:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_DB: lm_poc
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-volumes:
-  pgdata:

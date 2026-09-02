@@ -36,12 +36,6 @@ jobs:
 
     - name: Run integration tests in container
       run: |
-        # Start postgres service first
-        docker compose up -d --build postgres
-        echo 'Waiting for Postgres to initialize...'
-        sleep 10
-        # Run migrations
-        docker compose run --rm backend npm run migrate
         # Start backend in TEST_MODE so e2e can inject text
         docker compose up -d --build --scale backend=1
         # Wait for backend to be ready
