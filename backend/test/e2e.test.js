@@ -24,7 +24,8 @@ const FormData = require('form-data');
     if (!useImage) headers['X-Test-Mode'] = '1';
 
     console.log('Posting to /api/ocr for e2e test');
-    const resp = await fetch('http://localhost:5000/api/ocr', { method: 'POST', body: form, headers });
+    const API_URL = process.env.API_URL || 'http://localhost:5001';
+    const resp = await fetch(`${API_URL}/api/ocr`, { method: 'POST', body: form, headers });
     if (!resp.ok) {
       console.error('E2E POST failed:', resp.status);
       process.exit(2);
@@ -46,8 +47,8 @@ const FormData = require('form-data');
       const diffs = [];
       if ((data.fields.mrp || '') !== (expected.mrp || '')) diffs.push(`mrp expected=${expected.mrp} actual=${data.fields.mrp}`);
       if ((data.fields.net_quantity || '').toLowerCase() !== (expected.net_quantity || '').toLowerCase()) diffs.push(`net_quantity expected=${expected.net_quantity} actual=${data.fields.net_quantity}`);
-      if (!((data.fields.manufacturer||'').toLowerCase().includes((expected.manufacturer||'').toLowerCase()))) diffs.push(`manufacturer expected to include ${expected.manufacturer} actual=${data.fields.manufacturer}`);
-      if (!((data.fields.month_year||'').toLowerCase().includes((expected.month_year||'').toLowerCase()))) diffs.push(`month_year expected=${expected.month_year} actual=${data.fields.month_year}`);
+      if (!((data.fields.manufacturer || '').toLowerCase().includes((expected.manufacturer || '').toLowerCase()))) diffs.push(`manufacturer expected to include ${expected.manufacturer} actual=${data.fields.manufacturer}`);
+      if (!((data.fields.month_year || '').toLowerCase().includes((expected.month_year || '').toLowerCase()))) diffs.push(`month_year expected=${expected.month_year} actual=${data.fields.month_year}`);
       if (diffs.length > 0) {
         console.error('E2E mismatches:\n', diffs.join('\n'));
         process.exit(8);

@@ -46,14 +46,14 @@ jobs:
         docker compose up -d --build --scale backend=1
         # Wait for backend to be ready
         for i in {1..60}; do
-          if curl -sSf http://localhost:5000/health >/dev/null 2>&1; then echo 'backend ready' && break; fi
+          if curl -sSf http://localhost:5001/health >/dev/null 2>&1; then echo 'backend ready' && break; fi
           echo 'waiting for backend...' ; sleep 2;
         done
         # Run unit tests (inside container)
         docker compose run --rm backend npm test
         # Run integration test (real OCR) - may require tesseract data download
-        docker compose run --rm -e TEST_MODE=1 backend npm run test:e2e
+        docker compose run --rm -e TEST_MODE=1 -e API_URL=http://backend:5001 backend npm run test:e2e
         # Also run original integration (downloads a sample image and posts it)
-        docker compose run --rm backend npm run test:integration
+        docker compose run --rm -e API_URL=http://backend:5001 backend npm run test:integration
         # Tear down
         docker compose down
