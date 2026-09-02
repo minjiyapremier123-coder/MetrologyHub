@@ -11,7 +11,7 @@ const extractor = require('../lib/extractor');
     if (!resp.ok) throw new Error('Failed to download sample image: ' + resp.status);
 
     const buf = await resp.buffer();
-    const tmpPath = path.join(__dirname, 'sample.png');
+    const tmpPath = path.join(__dirname, 'sample_COMPLIANT.png');
     fs.writeFileSync(tmpPath, buf);
 
     console.log('Logging in to get JWT token...');
