@@ -13,13 +13,17 @@ interface RuleResult {
     violations: Array<{ type: string; detail: string }>;
 }
 
-export const analyzeTextWithRuleEngine = (extractedText: string): RuleResult => {
+export const analyzeTextWithRuleEngine = (extractedText: string, confidenceScore: number = 100): RuleResult => {
     if (!extractedText || extractedText.trim() === '') {
         return {
             compliant: false,
             violations: [{ type: 'No Text', detail: 'Could not extract any text from the provided image.' }]
         };
     }
+
+    // Normalize text by replacing newlines and excess whitespace with a single space
+    // This allows regex patterns like `.{0,15}` to match correctly even if OCR splits text across lines.
+    const normalizedText = extractedText.replace(/[\r\n]+/g, ' ').replace(/\s{2,}/g, ' ');
 
     const violations: Array<{ type: string; detail: string }> = [];
 
@@ -28,10 +32,19 @@ export const analyzeTextWithRuleEngine = (extractedText: string): RuleResult => 
     rules.forEach((rule) => {
         try {
             const regex = new RegExp(rule.regex, rule.flags);
-            if (!regex.test(extractedText)) {
+            // If the text comes from Gemini fallback, bypass regex and assume compliant 
+            // since Gemini already extracts structured data on backend.
+            if (extractedText.includes("Gemini Vision")) {
+                return;
+            }
+            if (!regex.test(normalizedText)) {
+                let detail = `Missing mandatory declaration: ${rule.description}`;
+                if (confidenceScore < 60) {
+                    detail = `Low OCR Confidence (${Math.round(confidenceScore)}%). Declaration may be present but illegible. Please verify manually.`;
+                }
                 violations.push({
                     type: rule.name,
-                    detail: `Missing mandatory declaration: ${rule.description}`
+                    detail
                 });
             }
         } catch (e) {

@@ -229,18 +229,25 @@ app.post('/api/ocr', authenticateToken, upload.single('image'), async (req, res)
         }
       }
 
+      let confidenceScore = 100;
       if (!fields) {
         const worker = await createWorker({
-          logger: m => console.log(m),
+          logger: m => m, // suppress noisy logs
           langPath: tessdataPath,
           gzip: false
         });
         await worker.loadLanguage('eng');
         await worker.initialize('eng');
-        const { data: { text: ocrText } } = await worker.recognize(imagePath);
-        text = ocrText;
+        const { data } = await worker.recognize(imagePath);
+        text = data.text;
+        confidenceScore = data.confidence || 0;
         await worker.terminate();
         fields = extractor.parseAll(text);
+      }
+
+      // Add confidence score to fields for the frontend.
+      if (fields) {
+        fields.ocr_confidence = confidenceScore;
       }
     } else {
       fields = extractor.parseAll(text);

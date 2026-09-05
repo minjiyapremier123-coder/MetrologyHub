@@ -13,28 +13,28 @@
             "id": "net_quantity",
             "name": "Net Quantity",
             "description": "Checks for net volume or weight with valid unit",
-            "regex": "(net|weight|vol|qty|content).{0,15}[\\d\\.]+\\s*(g|kg|ml|l|liter|litre|gm|pieces|pcs)\\b",
+            "regex": "(net|weight|wt\\.?|vol|qty|quantity|content).{0,30}[\\d\\.]+\\s*(g|kg|ml|l|liter|litre|gm|pieces|pcs)\\b",
             "flags": "i"
         },
         {
             "id": "mrp",
             "name": "MRP (Maximum Retail Price)",
             "description": "Checks for MRP and inclusive of all taxes pattern",
-            "regex": "(mrp|m\\.r\\.p|rs\\.?|₹|price).{0,15}[\\d\\.]+",
+            "regex": "(mrp|m\\.r\\.p|maximum retail price|rs\\.?|₹|price).{0,30}[\\d\\.]+",
             "flags": "i"
         },
         {
             "id": "mfg_date",
             "name": "Manufacturing / Packing Date",
             "description": "Checks for date patterns MM/YYYY or similar",
-            "regex": "(mfd|pkd|use by|manufactured|packed).{0,15}(\\d{2}[/\\.-]\\d{2,4}|[a-zA-Z]{3,}\\s*\\d{2,4})",
+            "regex": "(mfg|mfd|pkd|use by|best before|bb|manufactured|packed).{0,30}(\\d{1,2}[/\\.-]\\d{2,4}|[a-zA-Z]{3,}\\s*\\d{2,4})",
             "flags": "i"
         },
         {
             "id": "consumer_care",
             "name": "Consumer Care Details",
             "description": "Checks for contact info (email/phone/address) for complaints",
-            "regex": "(consumer|customer|care|feedback|complaint|toll.?free|email|call|@)",
+            "regex": "(consumer|customer|care|feedback|complaint|toll.?free|email|call|@|contact|write to)",
             "flags": "i"
         }
     ]

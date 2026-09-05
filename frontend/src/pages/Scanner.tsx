@@ -311,6 +311,7 @@ export const Scanner = () => {
             let extracted = "";
             let boxes: any[] = [];
             let scanId = "";
+            let fieldsObj: any = null;
             for (let i = 0; i < scanSteps.length; i++) {
                 setScanStep(i);
 
@@ -335,6 +336,7 @@ export const Scanner = () => {
                         const result = JSON.parse(rawText);
                         extracted = result.text || "";
                         scanId = result.id || "";
+                        fieldsObj = result.fields || null;
                         boxes = [];
                     } catch (ocrErr: any) {
                         console.error('OCR Error:', ocrErr);
@@ -345,7 +347,7 @@ export const Scanner = () => {
                 }
             }
 
-            const ruleResult = analyzeTextWithRuleEngine(extracted);
+            const ruleResult = analyzeTextWithRuleEngine(extracted, fieldsObj?.ocr_confidence || 100);
             const productName = files[0].name.replace(/\.[^/.]+$/, "");
 
             let repeatViolations = false;
