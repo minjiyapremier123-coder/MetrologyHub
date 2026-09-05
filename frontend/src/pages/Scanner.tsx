@@ -444,7 +444,7 @@ export const Scanner = () => {
             </div>
 
             <div className="d-flex gap-4" style={{ flexWrap: 'wrap', alignItems: 'flex-start' }}>
-                <Card style={{ flex: '1 1 350px' }}>
+                <Card style={{ flex: '1 1 min(100%, 350px)' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                         {!showCamera ? (
                             <div
@@ -540,7 +540,7 @@ export const Scanner = () => {
                     )}
                 </Card>
 
-                <div style={{ flex: '2 1 400px' }}>
+                <div style={{ flex: '2 1 min(100%, 400px)' }}>
                     {error && (
                         <Card style={{ borderLeft: '4px solid var(--danger)' }}>
                             <div className="d-flex align-center gap-4">

@@ -148,6 +148,7 @@ body {
     gap: 12px;
     background: var(--primary-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     padding: 0 12px 40px;
 }
@@ -541,4 +542,85 @@ textarea:focus {
 .recharts-text {
     fill: var(--text-secondary);
     font-weight: 500;
+}
+
+/* Responsive Mobile & Toggle Layout */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 9;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.menu-btn:hover {
+    background: var(--bg-card);
+}
+
+@media (min-width: 769px) {
+    .sidebar.desktop-closed {
+        margin-left: -280px;
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        height: 100vh;
+        box-shadow: var(--shadow-hover);
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar.mobile-open {
+        left: 0;
+    }
+
+    .topbar {
+        padding: 0 16px;
+        justify-content: space-between;
+    }
+
+    .page-container {
+        padding: 12px 16px 20px;
+    }
+
+    h1.page-title {
+        font-size: 1.75rem;
+    }
+
+    .user-name {
+        display: none;
+    }
+
+    .user-role {
+        display: none;
+    }
+
+    .user-profile {
+        padding: 6px;
+    }
 }

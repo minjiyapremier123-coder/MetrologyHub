@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { LayoutDashboard, ScanLine, History, Settings, Sun, Moon, LogOut, CloudOff } from 'lucide-react';
+import { Menu, ChevronLeft, LayoutDashboard, ScanLine, History, Settings, Sun, Moon, LogOut, CloudOff } from 'lucide-react';
 
 export const DashboardLayout = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
     const [lang, setLang] = useState(localStorage.getItem('appLang') || 'English');
+    const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -95,10 +96,21 @@ export const DashboardLayout = () => {
 
     return (
         <div className="layout">
-            <aside className="sidebar">
-                <div className="sidebar-brand">
-                    <ScanLine className="brand-icon" size={28} />
-                    <h2>MetrologyHub</h2>
+            <div
+                className={`sidebar-overlay ${isSidebarOpen ? 'active' : ''}`}
+                onClick={() => setIsSidebarOpen(false)}
+            />
+            <aside className={`sidebar ${isSidebarOpen ? 'mobile-open' : 'desktop-closed'}`}>
+                <div className="sidebar-brand" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <ScanLine className="brand-icon" size={28} />
+                        <h2>MetrologyHub</h2>
+                    </div>
+                    {isSidebarOpen && (
+                        <button className="menu-btn" style={{ padding: 4 }} onClick={() => setIsSidebarOpen(false)}>
+                            <ChevronLeft size={24} />
+                        </button>
+                    )}
                 </div>
 
                 <nav className="sidebar-nav">
@@ -106,6 +118,7 @@ export const DashboardLayout = () => {
                         <NavLink
                             key={item.path}
                             to={item.path}
+                            onClick={() => setIsSidebarOpen(false)}
                             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                         >
                             <item.icon size={20} />
@@ -126,8 +139,13 @@ export const DashboardLayout = () => {
             </aside>
 
             <main className="main-content">
-                <header className="topbar">
+                <header className="topbar" style={{ paddingLeft: !isSidebarOpen ? 16 : 32 }}>
                     <div className="topbar-search">
+                        {!isSidebarOpen && (
+                            <button className="menu-btn" onClick={() => setIsSidebarOpen(true)}>
+                                <Menu size={24} />
+                            </button>
+                        )}
                         {/* Search or breadcrumbs */}
                     </div>
                     <div className="topbar-actions">
